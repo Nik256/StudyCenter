@@ -87,21 +87,7 @@ public class DemoStudyCenter {
 
         students.add(new Student("Alexandrov Alexandr", curriculum, marks));
 
-//        StudyCenter studyCenter = new StudyCenter();
-//
-//        System.out.println(studyCenter.calculateNumberOfDaysLeft(students.get(1)));
-//
-//        System.out.println(studyCenter.calculateAverageMark(students.get(1)));
-//
-//        System.out.println(studyCenter.calculateStudentDeduction(students.get(1)));
-//
-//        studyCenter.listStudentsSortedByNameAverageMark(students);
-//
-//        studyCenter.listStudentsSortedByLeftDaysToEndOfStudy(students);
-//
-//        studyCenter.listStudentsFullInfo(students);
-//
-//        studyCenter.listOnlySucessStudents(students);
+        // show menu
         Menu menu = new Menu(new StudyCenter(students));
         menu.showMenu();
     }

@@ -41,19 +41,31 @@ public class StudyCenter {
         }
     }
 
-//    public long calculateNumberOfHoursLeft(Student student) {
-//        double numberOfHoursToStudy = 0;
-//        for (Course course : student.getCurriculum().getCourses()) {
-//            numberOfHoursToStudy += course.getDuration();
-//        }
-//
-//        LocalDate startDate = student.getCurriculum().getStartDate();
-//        LocalDate endDate = startDate.plusDays((long) Math.ceil(numberOfHoursToStudy / 8));
-//        LocalDate currentDate = LocalDate.now();
-//    }
+    public Student getStudentByName(String studentName) {
+        return students.stream().filter(st -> studentName.equals(st.getName()))
+                .findFirst().orElse(null);
+    }
+
+    public void showStudentNumberOfDaysLeftByName(String studentName) {
+        Student student = getStudentByName(studentName);
+        System.out.printf("\n%-30s %s\n", "Name", "Days Left");
+        System.out.printf("----------------------------------------\n");
+        System.out.printf("%-30s %d\n",
+                student.getName(),
+                calculateNumberOfDaysLeft(student));
+    }
 
     public double calculateAverageMark(Student student) {
         return getMarkSum(student.getMarks()) / (double) student.getMarks().size();
+    }
+
+    public void showStudentAverageMarkByName(String studentName) {
+        Student student = getStudentByName(studentName);
+        System.out.printf("\n%-30s %s\n", "Name", "Average mark");
+        System.out.printf("-------------------------------------------\n");
+        System.out.printf("%-30s %.2f\n",
+                student.getName(),
+                calculateAverageMark(student));
     }
 
     public int getMarkSum(List<Integer> marks) {
@@ -76,7 +88,7 @@ public class StudyCenter {
         return ChronoUnit.DAYS.between(startDate, endDate) + 1;
     }
 
-    public boolean calculateStudentDeduction(Student student) {
+    public boolean calculatePossibilityOfStudentSuccess(Student student) {
         if (((getNumberOfDaysToStudy(student.getCurriculum()) -
                 student.getMarks().size()) * 5 +
                 getMarkSum(student.getMarks())) /
@@ -85,6 +97,16 @@ public class StudyCenter {
         } else {
             return false;
         }
+    }
+
+    public void showStudentIsPossibleToSucceedByName(String studentName) {
+        Student student = getStudentByName(studentName);
+        System.out.printf("\n%-30s %-15s %-30s\n", "Name", "Average mark", "Possibility Of Success");
+        System.out.printf("---------------------------------------------------------------------\n");
+        System.out.printf("%-30s %-15.2f %-30s\n",
+                student.getName(),
+                calculateAverageMark(student),
+                calculatePossibilityOfStudentSuccess(student));
     }
 
     public void listStudentsSortedByNameAverageMark() {
@@ -110,22 +132,22 @@ public class StudyCenter {
     }
 
     public void listStudentsFullInfo() {
-        System.out.printf("\n%-30s %-20s %-15s %-30s\n", "Name", "Curriculum", "Average mark", "Possibility Of Deduction");
+        System.out.printf("\n%-30s %-20s %-15s %-30s\n", "Name", "Curriculum", "Average mark", "Possibility Of Success");
         System.out.printf("--------------------------------------------------------------------------------------------\n");
         for (Student student : students) {
             System.out.printf("%-30s %-20s %-15.2f %-30s\n",
                     student.getName(),
                     student.getCurriculum().getName(),
                     calculateAverageMark(student),
-                    calculateStudentDeduction(student));
+                    calculatePossibilityOfStudentSuccess(student));
         }
     }
 
-    public void listOnlySucessStudents() {
+    public void listOnlySuccessStudents() {
         System.out.printf("\n%-30s %-20s %-15s\n", "Name", "Curriculum", "Average mark");
         System.out.printf("----------------------------------------------------------------\n");
         for (Student student : students) {
-            if (calculateStudentDeduction(student)) {
+            if (calculatePossibilityOfStudentSuccess(student)) {
                 System.out.printf("%-30s %-20s %-15.2f\n",
                         student.getName(),
                         student.getCurriculum().getName(),
