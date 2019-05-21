@@ -1,4 +1,4 @@
-package console;
+package menu;
 
 import center.StudyCenter;
 
@@ -16,7 +16,7 @@ public class Menu {
         System.out.printf("\n%2s %-40s", "2.", "Calculate student average mark");
         System.out.printf("\n%2s %-40s", "3.", "Calculate possibility of student success");
         System.out.printf("\n%2s %-40s", "4.", "List students sorted by average mark");
-        System.out.printf("\n%2s %-40s", "5.", "List students sorted by time left to end of study");
+        System.out.printf("\n%2s %-40s", "5.", "List students sorted by time left to end of entity");
         System.out.printf("\n%2s %-40s", "6.", "List students full info");
         System.out.printf("\n%2s %-40s", "7.", "List only possible success students");
         System.out.printf("\n%2s %-40s\n\n", "0.", "Quit");
@@ -24,7 +24,7 @@ public class Menu {
         selectMenuItem();
     }
 
-    public void selectMenuItem() {
+    private void selectMenuItem() {
         Scanner scanner = new Scanner(System.in);
         Scanner scanner1 = new Scanner(System.in);
         int choice = scanner.nextInt();

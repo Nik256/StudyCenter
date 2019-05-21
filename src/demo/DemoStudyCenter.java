@@ -1,10 +1,10 @@
 package demo;
 
 import center.StudyCenter;
-import console.Menu;
-import study.Course;
-import study.Curriculum;
-import study.Student;
+import menu.Menu;
+import entity.Course;
+import entity.Curriculum;
+import entity.Student;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class DemoStudyCenter {
 
         students.add(new Student("Petrov Petr", curriculum, marks));
 
-        // Sidorov Sidr
+        // Sidorov Sidor
         courses = new ArrayList<>();
         courses.add(new Course("Обзор технологий C++", 16));
         courses.add(new Course("Библиотека Qt", 32));
@@ -70,9 +70,9 @@ public class DemoStudyCenter {
         marks.add(4);
         marks.add(3);
 
-        students.add(new Student("Sidorov Sidr", curriculum, marks));
+        students.add(new Student("Sidorov Sidor", curriculum, marks));
 
-        // Alexandrov Alexandr
+        // Alexandrov Alexander
         courses = new ArrayList<>();
         courses.add(new Course("Обзор Ruby", 16));
         courses.add(new Course("Функциональное программирование", 24));
@@ -85,7 +85,7 @@ public class DemoStudyCenter {
         marks.add(5);
         marks.add(5);
 
-        students.add(new Student("Alexandrov Alexandr", curriculum, marks));
+        students.add(new Student("Alexandrov Alexander", curriculum, marks));
 
         // show menu
         Menu menu = new Menu(new StudyCenter(students));

@@ -1,7 +1,7 @@
 package utils;
 
 import center.StudyCenter;
-import study.Student;
+import entity.Student;
 
 import java.util.Comparator;
 

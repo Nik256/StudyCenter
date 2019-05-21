@@ -1,8 +1,8 @@
 package center;
 
-import study.Course;
-import study.Curriculum;
-import study.Student;
+import entity.Course;
+import entity.Curriculum;
+import entity.Student;
 import utils.AverageMarkComparator;
 import utils.DaysLeftComparator;
 
@@ -41,15 +41,19 @@ public class StudyCenter {
         }
     }
 
-    public Student getStudentByName(String studentName) {
-        return students.stream().filter(st -> studentName.equals(st.getName()))
+    private Student getStudentByName(String studentName) {
+        Student student = students.stream().filter(st -> studentName.equals(st.getName()))
                 .findFirst().orElse(null);
+        if (student == null) {
+            throw new RuntimeException("Wrong student name");
+        }
+        return student;
     }
 
     public void showStudentNumberOfDaysLeftByName(String studentName) {
         Student student = getStudentByName(studentName);
         System.out.printf("\n%-30s %s\n", "Name", "Days Left");
-        System.out.printf("----------------------------------------\n");
+        System.out.print("----------------------------------------\n");
         System.out.printf("%-30s %d\n",
                 student.getName(),
                 calculateNumberOfDaysLeft(student));
@@ -62,13 +66,13 @@ public class StudyCenter {
     public void showStudentAverageMarkByName(String studentName) {
         Student student = getStudentByName(studentName);
         System.out.printf("\n%-30s %s\n", "Name", "Average mark");
-        System.out.printf("-------------------------------------------\n");
+        System.out.print("-------------------------------------------\n");
         System.out.printf("%-30s %.2f\n",
                 student.getName(),
                 calculateAverageMark(student));
     }
 
-    public int getMarkSum(List<Integer> marks) {
+    private int getMarkSum(List<Integer> marks) {
         int markSum = 0;
         for (Integer mark : marks) {
             markSum += mark;
@@ -76,7 +80,7 @@ public class StudyCenter {
         return markSum;
     }
 
-    public long getNumberOfDaysToStudy(Curriculum curriculum) {
+    private long getNumberOfDaysToStudy(Curriculum curriculum) {
         double numberOfHoursToStudy = 0;
         for (Course course : curriculum.getCourses()) {
             numberOfHoursToStudy += course.getDuration();
@@ -88,21 +92,17 @@ public class StudyCenter {
         return ChronoUnit.DAYS.between(startDate, endDate) + 1;
     }
 
-    public boolean calculatePossibilityOfStudentSuccess(Student student) {
-        if (((getNumberOfDaysToStudy(student.getCurriculum()) -
+    private boolean calculatePossibilityOfStudentSuccess(Student student) {
+        return ((getNumberOfDaysToStudy(student.getCurriculum()) -
                 student.getMarks().size()) * 5 +
                 getMarkSum(student.getMarks())) /
-                (double) getNumberOfDaysToStudy(student.getCurriculum()) >= 4.5f) {
-            return true;
-        } else {
-            return false;
-        }
+                (double) getNumberOfDaysToStudy(student.getCurriculum()) >= 4.5f;
     }
 
     public void showStudentIsPossibleToSucceedByName(String studentName) {
         Student student = getStudentByName(studentName);
         System.out.printf("\n%-30s %-15s %-30s\n", "Name", "Average mark", "Possibility Of Success");
-        System.out.printf("---------------------------------------------------------------------\n");
+        System.out.print("---------------------------------------------------------------------\n");
         System.out.printf("%-30s %-15.2f %-30s\n",
                 student.getName(),
                 calculateAverageMark(student),
@@ -112,7 +112,7 @@ public class StudyCenter {
     public void listStudentsSortedByNameAverageMark() {
         students.sort(new AverageMarkComparator());
         System.out.printf("\n%-30s %s\n", "Name", "Average mark");
-        System.out.printf("-------------------------------------------\n");
+        System.out.print("-------------------------------------------\n");
         for (Student student : students) {
             System.out.printf("%-30s %.2f\n",
                     student.getName(),
@@ -123,7 +123,7 @@ public class StudyCenter {
     public void listStudentsSortedByLeftDaysToEndOfStudy() {
         students.sort(new DaysLeftComparator());
         System.out.printf("\n%-30s %s\n", "Name", "Days Left");
-        System.out.printf("----------------------------------------\n");
+        System.out.print("----------------------------------------\n");
         for (Student student : students) {
             System.out.printf("%-30s %d\n",
                     student.getName(),
@@ -133,7 +133,7 @@ public class StudyCenter {
 
     public void listStudentsFullInfo() {
         System.out.printf("\n%-30s %-20s %-15s %-30s\n", "Name", "Curriculum", "Average mark", "Possibility Of Success");
-        System.out.printf("--------------------------------------------------------------------------------------------\n");
+        System.out.print("--------------------------------------------------------------------------------------------\n");
         for (Student student : students) {
             System.out.printf("%-30s %-20s %-15.2f %-30s\n",
                     student.getName(),
@@ -145,7 +145,7 @@ public class StudyCenter {
 
     public void listOnlySuccessStudents() {
         System.out.printf("\n%-30s %-20s %-15s\n", "Name", "Curriculum", "Average mark");
-        System.out.printf("----------------------------------------------------------------\n");
+        System.out.print("----------------------------------------------------------------\n");
         for (Student student : students) {
             if (calculatePossibilityOfStudentSuccess(student)) {
                 System.out.printf("%-30s %-20s %-15.2f\n",
