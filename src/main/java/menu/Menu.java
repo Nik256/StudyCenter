@@ -26,20 +26,20 @@ public class Menu {
 
     private void selectMenuItem() {
         Scanner scanner = new Scanner(System.in);
-        Scanner scanner1 = new Scanner(System.in);
+        Scanner strScanner = new Scanner(System.in);
         int choice = scanner.nextInt();
         String studentName;
         switch (choice) {
             case 1:
-                studentName = scanner1.nextLine();
+                studentName = strScanner.nextLine();
                 studyCenter.showStudentNumberOfDaysLeftByName(studentName);
                 break;
             case 2:
-                studentName = scanner1.nextLine();
+                studentName = strScanner.nextLine();
                 studyCenter.showStudentAverageMarkByName(studentName);
                 break;
             case 3:
-                studentName = scanner1.nextLine();
+                studentName = strScanner.nextLine();
                 studyCenter.showStudentIsPossibleToSucceedByName(studentName);
                 break;
             case 4:
