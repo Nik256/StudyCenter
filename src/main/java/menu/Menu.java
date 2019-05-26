@@ -26,21 +26,19 @@ public class Menu {
 
     private void selectMenuItem() {
         Scanner scanner = new Scanner(System.in);
-        Scanner strScanner = new Scanner(System.in);
         int choice = scanner.nextInt();
-        String studentName;
         switch (choice) {
             case 1:
-                studentName = strScanner.nextLine();
-                studyCenter.showStudentNumberOfDaysLeftByName(studentName);
+                scanner.nextLine();
+                studyCenter.showStudentNumberOfDaysLeftByName(scanner.nextLine());
                 break;
             case 2:
-                studentName = strScanner.nextLine();
-                studyCenter.showStudentAverageMarkByName(studentName);
+                scanner.nextLine();
+                studyCenter.showStudentAverageMarkByName(scanner.nextLine());
                 break;
             case 3:
-                studentName = strScanner.nextLine();
-                studyCenter.showStudentIsPossibleToSucceedByName(studentName);
+                scanner.nextLine();
+                studyCenter.showStudentIsPossibleToSucceedByName(scanner.nextLine());
                 break;
             case 4:
                 studyCenter.listStudentsSortedByNameAverageMark();
